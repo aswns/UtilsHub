@@ -5,13 +5,14 @@ from tqdm import tqdm
 import sys
 
 def split_data(inputdir, outputdir, train_rate):
-    """
-    inputdir: image dir support [".jpg",".png",".bmp", ".jpeg"]
-    outputdir : dir_path of splited train and val dir
-    train_rate: train num [>1] or train rate [<=1]
-    """
+    """Split imgdir to train and val dir by train rate or num
 
-
+    Args:
+        inputdir (str): image dir support [".jpg",".png",".bmp", ".jpeg"]
+        outputdir (str): dir_path of splited train and val dir
+        train_rate (float or int): train num [>1] or train rate [<=1]
+    """
+    
     filenames = os.listdir(inputdir)
     filepaths = []
     for filename in filenames:
@@ -45,7 +46,6 @@ def split_data(inputdir, outputdir, train_rate):
         else:
             shutil.copy2(filepath,testdir)
     print(f"split finished")
-
 
 if __name__ == "__main__":
     inputdir = r"E:\dataset\屏显\屏显分类验证\train_huaxing\guigenei"
