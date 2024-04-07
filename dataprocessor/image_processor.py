@@ -20,7 +20,7 @@ def lanczos(image,new_w_h):
 
 
 if __name__ == "__main__":
-    inputdir = r"E:\dataset\屏显\屏显分类验证\train_huaxing_split\guigenei"
+    inputdir = r"E:\dataset\屏显\屏显分类验证\huaxing_spot256-数据集-20240407101539"
     outputdir = ""
     for dirpath, dirnames, filenames in os.walk(inputdir):
         for filename in filenames:
