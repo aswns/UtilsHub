@@ -10,8 +10,8 @@ def drawHistogram(data1:np.array,data2:np.array):
         data2 (np.array): _description_
     """
     
-    plt.hist(data1, bins=30, alpha=0.5, label='Data 1')
-    plt.hist(data2, bins=30, alpha=0.5, label='Data 2')
+    plt.hist(data1, bins=30, alpha=0.5, label='guigenei')
+    plt.hist(data2, bins=30, alpha=0.5, label= 'guigewai')
     plt.xlabel('Value')
     plt.ylabel('Frequency')
     plt.title('Distribution of Data Attributes')
