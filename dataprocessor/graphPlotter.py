@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def drawHistogram(data1:np.array,data2:np.array):
+def drawHistogram(data1:np.array,data2:np.array,savepath="histgram.jpg"):
     """_summary_
 
     Args:
@@ -16,7 +16,7 @@ def drawHistogram(data1:np.array,data2:np.array):
     plt.ylabel('Frequency')
     plt.title('Distribution of Data Attributes')
     plt.legend()
-    plt.savefig('histgram.jpg')
+    plt.savefig(savepath)
 
 
 if __name__ == "__main__":

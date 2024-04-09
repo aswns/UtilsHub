@@ -1,21 +1,7 @@
-import matplotlib.pyplot as plt
-import numpy as np
+# test temporary
 
-
-def drawHistogram(data1:np.array,data2:np.array):
-    # 绘制直方图两类
-    plt.hist(data1, bins=30, alpha=0.5, label='Data 1')
-    plt.hist(data2, bins=30, alpha=0.5, label='Data 2')
-    plt.xlabel('Value')
-    plt.ylabel('Frequency')
-    plt.title('Distribution of Data Attributes')
-    plt.legend()
-    plt.savefig('histgram.jpg')
-
-
-if __name__ == "__main__":
-
-    # 生成示例数据
-    data1 = np.random.normal(loc=0, scale=1, size=1000)
-    data2 = np.random.normal(loc=2, scale=1.5, size=1000)
-    drawHistogram(data1, data2)
+list = [137.2,139.3,62.7,  36.5, 71,9.5,6.8,93.8,93.8,20.8,73.4, 14.2, 164.7, 144]
+137.1729862763581
+139.38938951914287
+62.73119369756877
+36.48162483521375
