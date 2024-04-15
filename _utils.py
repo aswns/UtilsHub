@@ -18,8 +18,8 @@ def copy_dirs(rootdir, savedir):
             oldpath = os.path.join(dirpath,dirname)
             new_dirpath = oldpath.replace(rootdir,savedir)
             os.makedirs(new_dirpath)
-            print(f"{new_dirpath} created")
-    print("******copy dirs finished******")
+            print(f"[func_info-copy_dirs]:{new_dirpath} created")
+    print("******[func_info-copy_dirs]:copy dirs finished******")
     return 0
 
 
