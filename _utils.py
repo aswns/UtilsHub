@@ -1,4 +1,4 @@
-import cv2, os
+import cv2, os, shutil
 import numpy as np
 
 def cv2_imread(imagePath):
@@ -12,7 +12,7 @@ def cv2_imwrite(path, image):
     cv2.imencode(os.path.splitext(path)[-1], image)[1].tofile(path)
 
 def copy_dirs(rootdir, savedir):
-    os.makedirs(savedir,exist_ok=False) if not os.path.exists(savedir) else print(f"savedir existed")
+    if not os.path.exists(savedir): print(f"{savedir} not exist")
     for dirpath,dirnames,filenames in os.walk(rootdir):
         for dirname in dirnames:
             oldpath = os.path.join(dirpath,dirname)
@@ -22,12 +22,19 @@ def copy_dirs(rootdir, savedir):
     print("******[func_info-copy_dirs]:copy dirs finished******")
     return 0
 
+def show_dir_tree(root_directory, indent='', _print_file=False):  # 递归
+    "显示目录树状图及文件数"
+    for item in os.listdir(root_directory):
+        item_path = os.path.join(root_directory, item)
+        if os.path.isdir(item_path):
+            print(f"{indent}|--- {item} : {len(os.listdir(item_path))}")
+            show_dir_tree(item_path, indent + '    ')
+        elif _print_file:
+            print(indent + '|--- ' + item)
 
 
 class constant:
     IMG_EXTENSION = [".jpg", ".jpeg", ".png", ".bmp"]
 
 if __name__ == "__main__":
-    rootdir = "E:\dataset\屏显\屏显分类验证\天马AI小图-38614张"
-    savedir = "E:\dataset\屏显\屏显分类验证\天马AI小图-38614张_vis"
-    copy_dirs(rootdir=rootdir,savedir=savedir)
+    show_dir_tree("data/changxing/datasetV1_cls5")
