@@ -76,6 +76,7 @@ def Sample_files(fromdir, todir, num):
 
 
 if __name__ == "__main__":
-    fromdir= r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\changxin_remain\jiangeandguigewai_spot"
-    todir = r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\test2000\defect"
-    Sample_files(fromdir, todir,100)
+    # fromdir= r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\changxin_remain\jiangeandguigewai_spot"
+    # todir = r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\test2000\defect"
+    # Sample_files(fromdir, todir, 100)
+    show_dir_tree("data/changxin/datasetV2_cls5")

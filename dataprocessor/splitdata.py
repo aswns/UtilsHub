@@ -72,8 +72,6 @@ def split_cls_data(input_root,trainValtest_rate=[0.6,0.2,0.2]):
         Sampled_list["val"][clsName] = random.sample(remain_files, val_num)
         test_files = [file for file in remain_files if file not in Sampled_list["val"][clsName]]
         Sampled_list["test"][clsName] = test_files
-    
-
 
     for dirName in Sampled_list.keys():
         new_dirPath =os.path.join(save_root, dirName)  # saveroot-trian -val -test
@@ -83,10 +81,12 @@ def split_cls_data(input_root,trainValtest_rate=[0.6,0.2,0.2]):
             for path in Sampled_list[dirName][cls]:
                 shutil.copy2(path, new_clsPath)
                 print(f"{path} copyed")
+    
+    show_dir_tree(save_root)
 
 
 if __name__ == "__main__":
     # inputdir = r"E:\dataset\屏显\屏显分类验证\train_huaxing\guigenei"
     # outputdir = r"E:\dataset\屏显\屏显分类验证\train_huaxing_split\guigenei"
     # split_data(inputdir, outputdir, 506)
-    split_cls_data("data/changxing/datasetV1_clean", [0.7,0.3,0])
+    split_cls_data("data/changxin/datasetV2", [0.9,0.1,0])
