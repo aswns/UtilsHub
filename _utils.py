@@ -1,4 +1,4 @@
-import cv2, os, shutil, sys, random
+import cv2, os, shutil, sys, random, sys, random
 import numpy as np
 
 
@@ -49,7 +49,7 @@ def del_samefiles(root, lookup_root):
         lookup_root (_type_): _description_
     """
     lookup_filenames = []
-    for dirpath,dirnames,pathnames in os.walk(lookup_root):
+    for dirpath, dirnames, pathnames in os.walk(lookup_root):
         for pathname in pathnames:
             lookup_filenames.append(pathname)
 
@@ -58,6 +58,7 @@ def del_samefiles(root, lookup_root):
             if pathname in lookup_filenames:
                 os.remove(os.path.join(dirpath, pathname))
                 print(f"removed {pathname}")
+
 
 def Sample_files(fromdir, todir, num):
     os.makedirs(todir, exist_ok=True)
@@ -72,11 +73,35 @@ def Sample_files(fromdir, todir, num):
     for path in sampledpaths:
         shutil.move(path, os.path.join(todir,os.path.split(path)[-1]))
         print(f"{path} copyed")
+
+def conver_imgForm(root, to_convertForm="bmp"):
+    """save root = root +"_"+ to_convertForm
+
+    Args:
+        root (_type_): _description_
+        to_convert (str, optional): _description_. Defaults to "bmp".
+    """
+    to_convertForm=to_convertForm.lower()
+    if to_convertForm not in ["png", "bmp"]:
+        print("error:to_convertForm not in [png, bmp]")
+        sys.exit()
+    saveroot = root+"_"+ to_convertForm
+    os.makedirs(saveroot,exist_ok=True)
+    copy_dirs(rootdir=root,savedir=saveroot)
+    for dirpath, dirnames, filenames in os.walk(root):
+        for filename in filenames:
+            if os.path.splitext(filename)[-1] not in constant().IMG_EXTENSION:
+                continue
+            oldpath = os.path.join(dirpath, filename)
+            img = cv2_imread(oldpath)
+            newpath = os.path.splitext(oldpath.replace(root,saveroot))[0]+"."+to_convertForm
+            cv2_imwrite(newpath,img)
+            print(f"Saved : {newpath}")
+
     
 
 
 if __name__ == "__main__":
-    # fromdir= r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\changxin_remain\jiangeandguigewai_spot"
-    # todir = r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\test2000\defect"
-    # Sample_files(fromdir, todir, 100)
-    show_dir_tree("data/changxin/datasetV2_cls5")
+    fromdir= r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\changxin_remain\jiangeandguigewai_spot"
+    todir = r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\test2000\defect"
+    Sample_files(fromdir, todir,100)
