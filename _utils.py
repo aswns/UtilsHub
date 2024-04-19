@@ -102,6 +102,7 @@ def conver_imgForm(root, to_convertForm="bmp"):
 
 
 if __name__ == "__main__":
-    fromdir= r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\changxin_remain\jiangeandguigewai_spot"
-    todir = r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\test2000\defect"
-    Sample_files(fromdir, todir,100)
+    # fromdir= r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\changxin_remain\jiangeandguigewai_spot"
+    # todir = r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\test2000\defect"
+    # Sample_files(fromdir, todir,100)
+    show_dir_tree("data/depute/原始数据0613_datasets_dpt_raiden_remain8855")

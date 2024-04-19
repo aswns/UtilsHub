@@ -86,7 +86,7 @@ def split_cls_data(input_root,trainValtest_rate=[0.6,0.2,0.2]):
 
 
 if __name__ == "__main__":
-    # inputdir = r"E:\dataset\屏显\屏显分类验证\train_huaxing\guigenei"
+    # inputdir = r"E:\dataset\屏显\屏显分类验证\train_huaxing\guigenei" 
     # outputdir = r"E:\dataset\屏显\屏显分类验证\train_huaxing_split\guigenei"
     # split_data(inputdir, outputdir, 506)
-    split_cls_data("data/changxin/datasetV2", [0.9,0.1,0])
+    split_cls_data("data/depute/deputeV2_huaxingV2", [0.9,0.1,0])
