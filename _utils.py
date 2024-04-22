@@ -42,7 +42,7 @@ def show_dir_tree(root_directory, indent='', _print_file=False):  # 递归
 
 
 def del_samefiles(root, lookup_root):
-    """删除同名文件
+    """删除同名文件 os.walk
 
     Args:
         root (_type_): _description_
