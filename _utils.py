@@ -19,30 +19,43 @@ def cv2_imwrite(path, image):
 
 
 def copy_dirs(rootdir, savedir):
+    """need to touch savedir first
+
+    Args:
+        rootdir (_type_): _description_
+        savedir (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     if not os.path.exists(savedir): print(f"{savedir} not exist")
     for dirpath,dirnames,filenames in os.walk(rootdir):
         for dirname in dirnames:
             oldpath = os.path.join(dirpath,dirname)
             new_dirpath = oldpath.replace(rootdir,savedir)
-            os.makedirs(new_dirpath)
+            os.makedirs(new_dirpath,exist_ok=True)
             print(f"[func_info-copy_dirs]:{new_dirpath} created")
     print("******[func_info-copy_dirs]:copy dirs finished******")
     return 0
 
 
-def show_dir_tree(root_directory, indent='', _print_file=False):  # 递归
+def _show_dir_tree(root_directory, indent='', _print_file=False):  # 递归
     "显示目录树状图及文件数"
     for item in os.listdir(root_directory):
         item_path = os.path.join(root_directory, item)
         if os.path.isdir(item_path):
             print(f"{indent}|--- {item} : {len(os.listdir(item_path))}")
-            show_dir_tree(item_path, indent + '    ')
+            _show_dir_tree(item_path, indent + '    ')
         elif _print_file:
             print(indent + '|--- ' + item)
 
+def show_dir_tree(root):
+    print(f"---{os.path.split(root)[-1]}:{len(os.listdir(root))}")
+    _show_dir_tree(root, indent='   ', _print_file=False)
+
 
 def del_samefiles(root, lookup_root):
-    """删除同名文件 os.walk
+    """删除同名文件(不区分文件夹)
 
     Args:
         root (_type_): _description_
@@ -98,11 +111,72 @@ def conver_imgForm(root, to_convertForm="bmp"):
             cv2_imwrite(newpath,img)
             print(f"Saved : {newpath}")
 
+def _rename_recursion(path):
+    if os.path.exists(path):  # 存在path则往后加_
+        name, ext = os.path.splitext(path)
+        new_path = name + "_" +ext
+        return _rename_recursion(new_path)
+    else:  # 直到不存在 递归 return
+        return path
+
+def copy_rename_files(rootdir,savedir):
+    """_summary_
+
+    Args:
+        root (_type_): _description_
+    """
+    copy_dirs(rootdir=rootdir,savedir=savedir)
+
+    for dirpath, dirnames, filenames in os.walk(rootdir):
+        for filename in filenames:
+            
+            new_filename = filename.split("-")[-1]  # *** 重命名规则
+            
+            old_path = os.path.join(dirpath, filename)
+            new_path = os.path.join(dirpath,new_filename)
+            
+            new_path = new_path.replace(rootdir, savedir)
+            new_path = _rename_recursion(new_path) # 防重
+
+            shutil.copy2(old_path, new_path)
+            print(f"copy and renamed{new_path}")
+
+    show_dir_tree(savedir)
     
 
 
 if __name__ == "__main__":
-    # fromdir= r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\changxin_remain\jiangeandguigewai_spot"
-    # todir = r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\长信数据\test2000\defect"
-    # Sample_files(fromdir, todir,100)
-    show_dir_tree("data/depute/原始数据0613_datasets_dpt_raiden_remain8855")
+    show_dir_tree(r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\莱宝数据\dt2_hx2_lb1")
+
+
+
+    # root = r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\德普特数据\deputeV2_huaxingV2_cleaned"
+    # savepath = root+"_renamed"
+    # if os.path.exists(savepath):shutil.rmtree(savepath)
+    # copy_rename_files(root,savepath)
+
+
+    # root = r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\德普特数据\原始数据0613_datasets_dpt_raiden"
+    # lookup_root = r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\德普特数据\deputeV2_huaxingV2_cleaned_renamed"
+    # del_samefiles(root, lookup_root)
+
+
+    # todir_map = {"NG":          r"E:\dataset\屏显\屏显分类验证\历史数据\天马\天马原始数据\NG",
+    #              "OK":          r"E:\dataset\屏显\屏显分类验证\历史数据\天马\天马原始数据\OK",
+    #              "scratch_NG":  r"E:\dataset\屏显\屏显分类验证\历史数据\天马\天马原始数据\scratch_NG",
+    #              "scratch_OK":  r"E:\dataset\屏显\屏显分类验证\历史数据\天马\天马原始数据\scratch_OK"}
+
+    # fromdir = r"E:\dataset\屏显\屏显分类验证\历史数据\天马\天马AI小图-38614张-画面图\天马小图-0309\缺陷\无划痕defect"
+    # todir = todir_map["NG"]
+
+    # fileNames = os.listdir(fromdir)
+    # for fileName in fileNames:
+    #     filepath = os.path.join(fromdir,fileName)
+    #     newpath = os.path.join(todir,fileName)
+        
+    #     newpath = _rename_recursion(newpath)  # 防止重名
+    #     shutil.copy(filepath,newpath)
+    #     print(f"Copyed : {newpath}")
+
+ 
+
