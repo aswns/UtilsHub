@@ -39,19 +39,41 @@ def copy_dirs(rootdir, savedir):
     return 0
 
 
-def _show_dir_tree(root_directory, indent='', _print_file=False):  # 递归
+# def _show_dir_tree(root_directory, indent='', _print_file=False, filenum=0):  # 递归
+#     "显示目录树状图及文件数"
+#     for item in os.listdir(root_directory):
+#         item_path = os.path.join(root_directory, item)
+#         if os.path.isdir(item_path):
+#             print(f"{indent}|--- {item} : {len(os.listdir(item_path))}")
+#             filenum=_show_dir_tree(item_path, indent + '    ',filenum)
+#             return filenum
+#         elif _print_file:
+#             filenum += 1
+#             print(indent + '|--- ' + item)
+
+# def show_dir_tree(root):
+#     print(f"---{os.path.split(root)[-1]}:{len(os.listdir(root))}")
+#     filenum = _show_dir_tree(root, indent='   ', _print_file=False)
+#     print(filenum)
+
+def _show_dir_tree(root_directory, indent='', _print_file=False, filenum=0):  
     "显示目录树状图及文件数"
     for item in os.listdir(root_directory):
         item_path = os.path.join(root_directory, item)
         if os.path.isdir(item_path):
             print(f"{indent}|--- {item} : {len(os.listdir(item_path))}")
-            _show_dir_tree(item_path, indent + '    ')
-        elif _print_file:
-            print(indent + '|--- ' + item)
+            filenum = _show_dir_tree(item_path, indent + '    ', _print_file, filenum)
+        else:
+            filenum += 1
+            if _print_file:
+                print(indent + '|--- ' + item)
+    return filenum
 
 def show_dir_tree(root):
-    print(f"---{os.path.split(root)[-1]}:{len(os.listdir(root))}")
-    _show_dir_tree(root, indent='   ', _print_file=False)
+    print(f"|--- {os.path.split(root)[-1]}:{len(os.listdir(root))}")
+    filenum = _show_dir_tree(root, indent='   ', _print_file=False)
+    print("Total files:", filenum)
+
 
 
 def del_samefiles(root, lookup_root):
@@ -146,7 +168,7 @@ def copy_rename_files(rootdir,savedir):
 
 
 if __name__ == "__main__":
-    show_dir_tree(r"E:\dataset\屏显\屏显分类验证\屏显分类基础模型\莱宝数据\dt2_hx2_lb1")
+    show_dir_tree(r"data/boe/boe_v1")
 
 
 

@@ -89,4 +89,4 @@ if __name__ == "__main__":
     # inputdir = r"E:\dataset\屏显\屏显分类验证\train_huaxing\guigenei" 
     # outputdir = r"E:\dataset\屏显\屏显分类验证\train_huaxing_split\guigenei"
     # split_data(inputdir, outputdir, 506)
-    split_cls_data("data/laibao/dt2_hx2_lb1", [0.9,0.09,0.01])
+    split_cls_data("data/boe/base_data_v1", [0.9,0.09,0.01])
